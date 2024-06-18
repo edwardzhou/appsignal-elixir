@@ -10,9 +10,9 @@ jobs:
     strategy:
       matrix:
         otp:
-          - 27.0
+          - 27.x
         elixir:
-          - 1.17.1
+          - 1.17.x
         include:
           - otp: master
             elixir: main
