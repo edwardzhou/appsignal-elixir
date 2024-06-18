@@ -1,0 +1,11 @@
+name: CI
+
+on:
+  push:
+    branches: [ "actions" ]
+
+jobs:
+  test:
+    steps:
+      - name: Run tests
+        run: mix test
