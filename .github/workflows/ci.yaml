@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: ['27.0']
+        otp:
+          - master
+          - 27.0
         elixir:
           - main
           - 1.17.1
