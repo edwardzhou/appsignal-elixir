@@ -10,7 +10,9 @@ jobs:
     strategy:
       matrix:
         otp: ['27.0']
-        elixir: ['1.17.1']
+        elixir:
+          - main
+          - 1.17.1
     steps:
       - name: Set up Erlang and Elixir
         uses: erlef/setup-beam@v1
