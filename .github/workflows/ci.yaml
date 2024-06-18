@@ -13,6 +13,12 @@ jobs:
         with:
           otp-version: master
           elixir-version: main
+      - name: PLT cache
+        uses: actions/cache@v4
+        id: plt_cache
+        with:
+          key: plt
+          path: priv/plts
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Get dependencies
