@@ -5,6 +5,27 @@ on:
     branches: [ "actions" ]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Erlang and Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: master
+          elixir-version: main
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Get dependencies
+        run: mix deps.get
+      - name: Check for compilation errors
+        run: mix compile --warnings-as-errors
+      - name: Check code formatting
+        run: mix format --check-formatted
+      - name: Analyze code with Credo
+        run: mix credo --strict
+      - name: Analyze code with Dialyzer
+        run: mix dialyzer --format dialyzer
+
   test:
     runs-on: ubuntu-latest
     strategy:
