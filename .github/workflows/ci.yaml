@@ -6,6 +6,15 @@ on:
 
 jobs:
   test:
+    strategy:
+      matrix:
+        otp: ['27.0']
+        elixir: ['1.17.1']
     steps:
+      - name: Set up Erlang and Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
       - name: Run tests
         run: mix test
