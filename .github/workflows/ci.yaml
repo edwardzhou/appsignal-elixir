@@ -30,7 +30,7 @@ jobs:
       - name: Analyze code with Credo
         run: mix credo --strict
       - name: Analyze code with Dialyzer
-        run: mix dialyzer --format dialyzer
+        run: mix dialyzer --format github
 
   test:
     runs-on: ubuntu-latest
