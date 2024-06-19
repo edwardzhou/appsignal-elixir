@@ -133,6 +133,7 @@ defmodule Appsignal.Mixfile do
       end
 
     [
+      {:req, "~> 0.5"},
       {:decimal, "~> 2.0"},
       {:benchee, "~> 1.0", only: :bench},
       {:hackney, hackney_version},
