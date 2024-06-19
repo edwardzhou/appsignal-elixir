@@ -226,23 +226,40 @@ defmodule Mix.Appsignal.Helper do
   end
 
   defp do_download_file!(url, local_filename) do
-    case :hackney.request(:get, url, [], "", download_options()) do
-      {:ok, 200, _, reference} ->
-        case :hackney.body(reference) do
-          {:ok, body} -> File.write(local_filename, body)
-          {:error, reason} -> {:error, reason}
-        end
+    case Req.get(url) do
+      {:ok, %Req.Response{status: 200} = resp} ->
+        File.write(local_filename, resp.body)
 
       response ->
         message = """
         - URL: #{url}
-        - Error (hackney response):
+        - Error (Req.get response):
         #{inspect(response)}
         """
 
         {:error, message}
+
     end
   end
+
+  # defp do_download_file!(url, local_filename) do
+  #   case :hackney.request(:get, url, [], "", download_options()) do
+  #     {:ok, 200, _, reference} ->
+  #       case :hackney.body(reference) do
+  #         {:ok, body} -> File.write(local_filename, body)
+  #         {:error, reason} -> {:error, reason}
+  #       end
+
+  #     response ->
+  #       message = """
+  #       - URL: #{url}
+  #       - Error (hackney response):
+  #       #{inspect(response)}
+  #       """
+
+  #       {:error, message}
+  #   end
+  # end
 
   defp build_download_url(mirror, version, filename) do
     Enum.join([mirror, version, filename], "/")
