@@ -227,7 +227,8 @@ defmodule Mix.Appsignal.Helper do
 
   defp do_download_file!(url, local_filename) do
     case Req.get(url) do
-      {:ok, %Req.Response{status: 200} = resp} ->
+      {:ok, %{status: 200} = resp} ->
+             Req.Response
         File.write(local_filename, resp.body)
 
       response ->
