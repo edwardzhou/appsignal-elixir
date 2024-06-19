@@ -40,6 +40,8 @@ defmodule Mix.Appsignal.Helper do
   def install do
     report = initial_report()
 
+    {:ok, _} = Application.ensure_all_started(:req)
+
     case verify_system_architecture(report) do
       {:ok, {arch, report}} ->
         case find_package_source(arch, report) do
