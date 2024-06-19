@@ -32,6 +32,23 @@ jobs:
       - name: Analyze code with Dialyzer
         run: mix dialyzer --format github
 
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Erlang and Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: master
+          elixir-version: main
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Get dependencies
+        run: mix deps.get
+      - name: Run tests
+        run: test/integration/diagnose/bin/test
+
   test:
     runs-on: ubuntu-latest
     strategy:
